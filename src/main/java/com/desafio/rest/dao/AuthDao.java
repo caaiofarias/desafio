@@ -13,13 +13,11 @@ public class AuthDao {
 	public static Boolean tokenIsValid(String token) throws SQLException {
 		boolean result = false;
 		Connection conn = H2Connection.getConnection();
-		String sql = "SELECT id FROM USER u WHERE u.token = ?";
+		String sql = "SELECT * FROM USER u WHERE u.token = ?";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, token);
-		ResultSet rs = statement.executeQuery();
-		if(rs.next()) {
-			result = true;
-		}
+		System.out.println(token);
+		result = statement.execute();
 		return result;
 		
 	}
@@ -30,8 +28,9 @@ public class AuthDao {
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, token);
 		statement.setString(2, email);
-		statement.execute();
-		
+		int rs =  statement.executeUpdate();
+			System.out.println("updated" + rs);
 	}
 
 }
+

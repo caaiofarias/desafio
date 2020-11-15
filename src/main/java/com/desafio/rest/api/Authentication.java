@@ -40,7 +40,7 @@ public class Authentication {
 		
 		UserDao userDao = new UserDao();
 		int id = userDao.logIn(email, password);
-		if(id < 0 && !password.equals("admin") && !password.equals("admin")) {
+		if(id < 0) {
 			json.addProperty("message", "Usuário e/ou senha errado.");
 			return Response.status(200).entity(json.toString()).build();
 		}
@@ -49,8 +49,10 @@ public class Authentication {
 		json.addProperty("token", token);
 		Session.instance.setValue("token", token);
 		return Response.
-				temporaryRedirect(URI.create("/home.jsp?username="+Session.instance.getValue("name")))
-				.cookie(new NewCookie("token", token, "/", "localhost", 1, null, 24*60*60, false ))
+				temporaryRedirect(URI.create("/home.jsp?username"))
+				.cookie(new NewCookie("token", token, "/", "", 1, null, 24*60*60, false ))
+				.cookie(new NewCookie("username", userDao.findOne(email).getName(), "/", "", 2, null, 24*60*60, false))
 	               .status(308).build();
 	}
 }
+

@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-	<%@ page isELIgnored="false" %>
-	<%@ page contentType="text/html;charset=UTF-8"%>
+<%@page import="javax.servlet.http.Cookie"%>
+<%@ page isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="css/sidebar.css"/>
 	</head>
 	<body>
-			<% String name = request.getParameter("username"); %>
+		<% Cookie[] cookies = request.getCookies();
+			String name = "Usuário";
+			for(Cookie c : cookies ) {
+				System.out.print(c.getName());
+				if(c.getName().equals("username")) {
+					name = c.getValue();
+				}
+			}
+			
+		%>
 		<div style="position: absolute;right: 50px">
 		<h2>Bem vindo, <strong><%=name%></strong></h2>
 		</div>

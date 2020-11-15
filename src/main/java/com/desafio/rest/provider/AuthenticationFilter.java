@@ -41,7 +41,7 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
 		 
 
         try {
-            validateToken(token);
+            validateToken(token, requestContext);
 
         } catch (Exception e) {
             abortWithUnauthorized(requestContext);
@@ -61,12 +61,14 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
                         .build());
     }
 
-    private void validateToken(String token) throws Exception {
+    private void validateToken(String token, ContainerRequestContext requestContext) throws Exception {
+    	boolean result = false;
     	try {
-    		String tokenSesstion = (String) Session.instance.getValue("token");
-    		System.out.println("token session " + tokenSesstion);
-			boolean result = AuthDao.tokenIsValid(tokenSesstion);
-			System.out.println("resultado " + result);
+    		System.out.println("o token chegou" + token);
+			result = AuthDao.tokenIsValid(token);
+			if(!result) {
+				abortWithUnauthorized(requestContext);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
