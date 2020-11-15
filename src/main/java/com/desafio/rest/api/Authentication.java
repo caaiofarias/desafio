@@ -49,7 +49,7 @@ public class Authentication {
 		json.addProperty("token", token);
 		Session.instance.setValue("token", token);
 		return Response.
-				temporaryRedirect(URI.create("/home.jsp?username"))
+				temporaryRedirect(URI.create("/home.jsp"))
 				.cookie(new NewCookie("token", token, "/", "", 1, null, 24*60*60, false ))
 				.cookie(new NewCookie("username", userDao.findOne(email).getName(), "/", "", 2, null, 24*60*60, false))
 	               .status(308).build();
