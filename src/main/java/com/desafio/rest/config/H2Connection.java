@@ -32,13 +32,17 @@ public class H2Connection {
 		         String sql =  "CREATE TABLE IF NOT EXISTS USER " + 
 		            "(id INTEGER not NULL AUTO_INCREMENT, " +
 		            " name VARCHAR(255), " +  
-		            " email VARCHAR(255), " +  
+		            " email VARCHAR(255) unique, " +  
 		            " password VARCHAR(255), " +
 		            " token VARCHAR(255), " +
 		            " PRIMARY KEY ( id ), " +
 		            ")";
+		         String insert = "MERGE INTO USER \n"
+		         		+ "  KEY(ID) \n"
+		         		+ "VALUES (1, 'caio', 'caiofariaspe@gmail.com', 'admin', 'admin');";
 		         stmt.executeUpdate(sql);
 		         stmt.executeUpdate(sqlPhone);
+		         stmt.executeUpdate(insert);
 		         stmt.close(); 
 		      } catch(SQLException se) { 
 		         se.printStackTrace(); 
@@ -56,4 +60,5 @@ public class H2Connection {
 		   H2Connection.getConnection();
 	}
 }
+
 
