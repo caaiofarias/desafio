@@ -59,7 +59,7 @@ public class UserDao {
 	}
 	
 	public User findOne(int id) throws SQLException {
-		User user = new User();
+		User user = null;
 		List<Phone> phones = new ArrayList<Phone>();
 		PhoneDao phoneDao = new PhoneDao();
 		String sql = "SELECT * FROM USER WHERE id = ?";
@@ -68,14 +68,14 @@ public class UserDao {
 		statement.setInt(1, id);
 		ResultSet rs = statement.executeQuery();
 		if(rs.next()) {
+			user = new User();
 			user.setId(rs.getInt("id"));
 			user.setEmail(rs.getString("email"));
 			user.setName(rs.getString("name"));
 			user.setPassword(rs.getString("password"));
+			phones = phoneDao.findByUser(user.getId());
+			user.setPhones(phones);
 		}
-		phones = phoneDao.findByUser(user.getId());
-		System.out.println(user.getEmail());
-		user.setPhones(phones);
 		return user;
 	}
 	
@@ -118,11 +118,12 @@ public class UserDao {
 	
 	public void editUser(User user) throws SQLException {
 		Connection conn = H2Connection.getConnection();
-		String sql = "UPDATE USER SET name = ?, email = ?, password = ?";
+		String sql = "UPDATE USER SET name = ?, email = ?, password = ? WHERE USER.email = ? ";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, user.getName());
 		statement.setString(2, user.getEmail());
 		statement.setString(3, user.getPassword());
+		statement.setString(4, user.getEmail());
 		statement.execute();
 	}
 	
