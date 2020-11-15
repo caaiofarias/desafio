@@ -32,7 +32,7 @@ public class H2Connection {
 		         String sql =  "CREATE TABLE IF NOT EXISTS USER " + 
 		            "(id INTEGER not NULL AUTO_INCREMENT, " +
 		            " name VARCHAR(255), " +  
-		            " email VARCHAR(255) unique, " +  
+		            " email VARCHAR(255), " +  
 		            " password VARCHAR(255), " +
 		            " token VARCHAR(255), " +
 		            " PRIMARY KEY ( id ), " +
