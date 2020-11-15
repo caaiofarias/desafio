@@ -45,15 +45,15 @@
                        		<div class="form-row" id="phone-div">
                        			<div class="col-md-2">
 	                        		<label for="ddd">DDD</label>
-	                        		<input value="<%=tempUser.getPhones().get(0).getDdd()%>" type="text" class="form-control" id="ddd" placeholder="(99)">
+	                        		<input value="<%=tempUser.getPhones().size() > 0 ? tempUser.getPhones().get(0).getDdd() : "" %>" type="text" class="form-control" id="ddd" placeholder="(99)">
 	                        	</div>
 	                        	<div class="col-md-6">
 	                        		<label for="number">Número</label>
-	                        		<input value="<%=tempUser.getPhones().get(0).getNumber()%>" type="number" class="form-control" id="number" placeholder="999999999">
+	                        		<input value="<%=tempUser.getPhones().size() > 0 ? tempUser.getPhones().get(0).getDdd() : ""%>" type="number" class="form-control" id="number" placeholder="999999999">
 	                        	</div>
 	                        	<div class="col-md-4">
 	                        		<label>Tipo</label>
-	                        		<input value="<%=tempUser.getPhones().get(0).getType()%>" class="form-control" id="ultimocampo" placeholder="tipo"/>
+	                        		<input value="<%=tempUser.getPhones().size() > 0 ? tempUser.getPhones().get(0).getDdd() : ""%>" class="form-control" id="ultimocampo" placeholder="tipo"/>
 	                        	</div>
                        		</div>
                        		<div class="form-row" id="more-phones"></div>
@@ -139,3 +139,4 @@
         })
     </script>
 </html>
+
