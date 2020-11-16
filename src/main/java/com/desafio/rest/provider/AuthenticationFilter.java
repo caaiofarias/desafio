@@ -1,6 +1,7 @@
 package com.desafio.rest.provider;
-import java.io.IOException;
-import java.sql.SQLException;
+
+import com.desafio.rest.dao.AuthDao;
+import com.desafio.rest.utils.Secured;
 
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
@@ -8,10 +9,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
-
-import com.desafio.rest.dao.AuthDao;
-import com.desafio.rest.model.Session;
-import com.desafio.rest.utils.Secured;
+import java.io.IOException;
+import java.sql.SQLException;
 
 @Secured
 @Provider
@@ -24,21 +23,21 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
-    	
+
         String authorizationHeader =
                 requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-        
+
         System.out.println(authorizationHeader);
-		
-		  if (!isTokenBasedAuthentication(authorizationHeader)) {
-		  abortWithUnauthorized(requestContext); 
-		  return; 
-		  }
-		 
-		
-		  String token = authorizationHeader
-		  .substring(AUTHENTICATION_SCHEME.length()).trim();
-		 
+
+        if (!isTokenBasedAuthentication(authorizationHeader)) {
+            abortWithUnauthorized(requestContext);
+            return;
+        }
+
+
+        String token = authorizationHeader
+                .substring(AUTHENTICATION_SCHEME.length()).trim();
+
 
         try {
             validateToken(token, requestContext);
@@ -50,27 +49,27 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
 
     private boolean isTokenBasedAuthentication(String authorizationHeader) {
         return authorizationHeader != null && authorizationHeader.toLowerCase()
-                    .startsWith(AUTHENTICATION_SCHEME.toLowerCase() + " ");
+                .startsWith(AUTHENTICATION_SCHEME.toLowerCase() + " ");
     }
 
     private void abortWithUnauthorized(ContainerRequestContext requestContext) {
         requestContext.abortWith(
                 Response.status(Response.Status.UNAUTHORIZED)
-                        .header(HttpHeaders.WWW_AUTHENTICATE, 
+                        .header(HttpHeaders.WWW_AUTHENTICATE,
                                 AUTHENTICATION_SCHEME + " realm=\"" + REALM + "\"")
                         .build());
     }
 
     private void validateToken(String token, ContainerRequestContext requestContext) throws Exception {
-    	boolean result = false;
-    	try {
-    		System.out.println("o token chegou" + token);
-			result = AuthDao.tokenIsValid(token);
-			if(!result) {
-				abortWithUnauthorized(requestContext);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+        boolean result = false;
+        try {
+            System.out.println("o token chegou" + token);
+            result = AuthDao.tokenIsValid(token);
+            if (!result) {
+                abortWithUnauthorized(requestContext);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
