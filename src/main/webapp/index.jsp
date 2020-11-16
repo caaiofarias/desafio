@@ -26,7 +26,7 @@
               </div>
               <div class="custom-control custom-checkbox mb-3">
               </div>
-              <button id="button-login" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+              <button id="button-login" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">ENTRAR</button>
             </form>
             <br>
             <div class="alert alert-warning alert-dismissible fade show" id="error-message" hidden="true">

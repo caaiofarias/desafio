@@ -56,7 +56,7 @@
 	                        	</div>
                        		</div>
                        		<div class="form-row" id="more-phones"></div>
-                       <input class="btn btn-primary btn-sm" type="submit" value="Cadastrar" id="button" name="<%=tempUser.getId()%>" style="margin-top: 20px">
+                       <input class="btn btn-primary btn-sm" type="submit" value="Confirmar" id="button" name="<%=tempUser.getId()%>" style="margin-top: 20px">
                     </div>
                     <button id="more-button" style="display: inline;"+></button>
 
