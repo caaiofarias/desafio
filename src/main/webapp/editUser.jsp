@@ -9,7 +9,6 @@
     int id = Integer.parseInt(request.getParameter("id"));
     UserDao userDao = new UserDao();
     User tempUser = userDao.findOne(id);
-    System.out.println("A" + tempUser.getPhones());
 %>
 
 <html>

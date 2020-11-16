@@ -11,7 +11,6 @@
 		<% Cookie[] cookies = request.getCookies();
 			String name = "Usuário";
 			for(Cookie c : cookies ) {
-				System.out.print(c.getName());
 				if(c.getName().equals("username")) {
 					name = c.getValue();
 				}

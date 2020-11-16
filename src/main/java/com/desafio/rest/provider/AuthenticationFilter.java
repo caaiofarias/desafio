@@ -28,7 +28,7 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
         String authorizationHeader =
                 requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
-        System.out.println(authorizationHeader);
+       
 
         if (!isTokenBasedAuthentication(authorizationHeader)) {
             abortWithUnauthorized(requestContext);
@@ -66,7 +66,7 @@ public class AuthenticationFilter implements javax.ws.rs.container.ContainerRequ
     private void validateToken(String token, ContainerRequestContext requestContext) throws Exception {
         boolean result = false;
         try {
-            System.out.println("o token chegou" + token);
+            
             result = TokenDao.tokenIsValid(token);
             if (!result) {
                 abortWithUnauthorized(requestContext);
