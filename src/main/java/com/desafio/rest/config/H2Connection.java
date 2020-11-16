@@ -39,7 +39,7 @@ public class H2Connection {
                     ")";
             String insert = "MERGE INTO USER \n"
                     + "  KEY(ID) \n"
-                    + "VALUES (1, 'caio', 'caiofariaspe@gmail.com', 'admin', 'admin');";
+                    + "VALUES (1, 'admin', 'admin', 'admin', '');";
             stmt.executeUpdate(sql);
             stmt.executeUpdate(sqlPhone);
             stmt.executeUpdate(insert);
