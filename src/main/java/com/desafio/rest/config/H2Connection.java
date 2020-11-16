@@ -34,8 +34,15 @@ public class H2Connection {
                     " name VARCHAR(255), " +
                     " email VARCHAR(255) unique, " +
                     " password VARCHAR(255), " +
-                    " token VARCHAR(255), " +
+                    " autorizado VARCHAR(255), " +
                     " PRIMARY KEY ( id ), " +
+                    ")";
+            String sqlToken = "CREATE TABLE IF NOT EXISTS TOKEN " +
+                    "(id INTEGER not NULL AUTO_INCREMENT, " +
+                    " value VARCHAR(255), " +
+                    " fk INTEGER, " +
+                    " PRIMARY KEY ( id ), " +
+                    "FOREIGN KEY(fk) REFERENCES USER(id)" +
                     ")";
             String insert = "MERGE INTO USER \n"
                     + "  KEY(ID) \n"
@@ -43,6 +50,7 @@ public class H2Connection {
             stmt.executeUpdate(sql);
             stmt.executeUpdate(sqlPhone);
             stmt.executeUpdate(insert);
+            stmt.executeUpdate(sqlToken);
             stmt.close();
         } catch (SQLException se) {
             se.printStackTrace();

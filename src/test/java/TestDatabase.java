@@ -24,7 +24,7 @@ public class TestDatabase extends TestCase {
     }
 
     public void testEdit() throws SQLException {
-        final User user = new User("Usuario1", "email1", "123");
+        final User user = new User("Usuario1", "email1", "123", "autorizado");
         int id = userDao.addUser(user);
         user.setName("newname");
         userDao.editUser(user);

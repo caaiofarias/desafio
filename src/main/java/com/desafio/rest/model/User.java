@@ -8,15 +8,18 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String autorizado;
     private List<Phone> phones;
 
-    public User(int id, String name, String email, String password, List<Phone> phones) {
+    public User(int id, String name, String email, String password, String token, List<Phone> phones) {
         super();
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.autorizado = token;
         this.phones = phones;
+        this.setToken(token);
     }
 
     public User(String name, String email, String password) {
@@ -24,6 +27,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+    
+    public User(String name, String email, String password, String autorizado) {
+        super();
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.email = autorizado;
     }
 
     public User() {
@@ -70,7 +81,15 @@ public class User {
         this.phones = phones;
     }
 
-    @Override
+    public String getToken() {
+		return autorizado;
+	}
+
+	public void setToken(String token) {
+		this.autorizado = token;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

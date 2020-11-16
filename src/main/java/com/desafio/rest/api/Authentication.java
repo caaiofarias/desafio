@@ -1,8 +1,9 @@
 package com.desafio.rest.api;
 
-import com.desafio.rest.dao.AuthDao;
+import com.desafio.rest.dao.TokenDao;
 import com.desafio.rest.dao.UserDao;
 import com.desafio.rest.model.Session;
+import com.desafio.rest.model.Token;
 import com.desafio.rest.utils.RandomToken;
 import com.google.gson.JsonObject;
 
@@ -34,8 +35,9 @@ public class Authentication {
             json.addProperty("message", "Usuário e/ou senha errado.");
             return Response.status(200).entity(json.toString()).build();
         }
-        String token = RandomToken.generateString();
-        AuthDao.updateToken(token, email);
+        
+        String token = storeToken(id);
+        
         json.addProperty("token", token);
         Session.instance.setValue("token", token);
         return Response.
@@ -51,5 +53,18 @@ public class Authentication {
                         false))
                 .status(308).build();
     }
+
+	private String storeToken(int id) throws SQLException {
+		TokenDao tokenDao = new TokenDao();
+        Token modelToken = new Token(RandomToken.generateString(), id);
+        int tokenId = tokenDao.findOneByIdUser(id);
+        if(tokenId > 0) {
+        	tokenDao.editToken(tokenId, modelToken.getValue());
+        	return modelToken.getValue();
+        } else {
+        	tokenDao.addToken(modelToken);
+        }
+		return modelToken.getValue();
+	}
 }
 

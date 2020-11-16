@@ -125,7 +125,7 @@
                 type: 'PUT',
                 async:false,
                 contentType: "application/json",
-                data:JSON.stringify({name,email,password,phones}),
+                data:JSON.stringify({name,email,password,autorizado:token,phones}),
                 headers: {
                 	"Authorization":"Bearer " + token,
                 },

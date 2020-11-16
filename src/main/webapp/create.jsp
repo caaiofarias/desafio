@@ -127,7 +127,9 @@
                     alert(JSON.stringify(data));
                 },
                 error: function(jqxhr, status, errorMsg) {
-                    alert('Failed! ' + errorMsg);
+                	console.log(jqxhr)
+                	console.log("message", status)
+                    alert('Failed! ' + jqxhr.responseText);
                 }
                 }).done((data) => {console.log(data)})
         })
