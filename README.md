@@ -9,6 +9,7 @@
   * JDBC para conexão com o banco
   * JSP
   * AJAX
+  * jUnit
   * Eclipse IDE
   * TomCat Server
   * Heroku para deploy
